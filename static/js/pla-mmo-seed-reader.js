@@ -375,11 +375,11 @@ const showFilteredResults = () => {
 
   if (filteredResults.length > 0) {
     filteredResults.forEach((result) => {
-	  let sprite = document.createElement('img');
-	  sprite.src = "static/img/sprite/"+result.sprite;
-	  
+      let sprite = document.createElement('img');
+      sprite.src = "static/img/sprite/"+result.sprite;
+      
       const resultContainer = resultTemplate.content.cloneNode(true);
-	  resultContainer.querySelector('.pla-results-sprite').appendChild(sprite);
+      resultContainer.querySelector('.pla-results-sprite').appendChild(sprite);
       resultContainer.querySelector("[data-pla-results-species]").innerText =
         result.species;
       resultContainer.querySelector("[data-pla-results-location]").innerHTML =
@@ -399,44 +399,59 @@ const showFilteredResults = () => {
       resultAlpha.classList.toggle("pla-result-true", result.alpha);
       resultAlpha.classList.toggle("pla-result-false", !result.alpha);
 
-	  resultContainer.querySelector("[data-pla-results-group]").innerText =
-	    result.group;
-	  resultContainer.querySelector("[data-pla-results-numspawns]").innerText =
-	    result.numspawns;
-	  resultContainer.querySelector("[data-pla-results-mapname]").innerText =
-	    result.mapname;
-      resultContainer.querySelector("[data-pla-results-nature]").innerText =
-        result.nature;
-      resultContainer.querySelector("[data-pla-results-gender]").innerText =
-        result.gender;
-      resultContainer.querySelector("[data-pla-results-seed]").innerText =
-        result.generator_seed;
-      resultContainer.querySelector("[data-pla-results-ec]").innerText =
-        result.ec.toString(16);
-      resultContainer.querySelector("[data-pla-results-pid]").innerText =
-        result.pid.toString(16);
-      resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
-        result.ivs[0];
-      resultContainer.querySelector("[data-pla-results-ivs-att]").innerText =
-        result.ivs[1];
-      resultContainer.querySelector("[data-pla-results-ivs-def]").innerText =
-        result.ivs[2];
-      resultContainer.querySelector("[data-pla-results-ivs-spa]").innerText =
-        result.ivs[3];
-      resultContainer.querySelector("[data-pla-results-ivs-spd]").innerText =
-        result.ivs[4];
-      resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
-        result.ivs[5];
-		
-		
-	  let button = document.createElement("button");
-	  button.innerText = "Teleport to Spawn";
-	  button.classList.add("pla-teleport-button");
-	  button.onclick = () => teleportToSpawn(result.coords);
+      resultContainer.querySelector("[data-pla-results-group]").innerText = result.group;
+      resultContainer.querySelector("[data-pla-results-numspawns]").innerText = result.numspawns;
+      resultContainer.querySelector("[data-pla-results-mapname]").innerText = result.mapname;
+      resultContainer.querySelector("[data-pla-results-nature]").innerText = result.nature;
+      resultContainer.querySelector("[data-pla-results-gender]").innerText = result.gender;
+      resultContainer.querySelector("[data-pla-results-seed]").innerText = result.generator_seed;
+      resultContainer.querySelector("[data-pla-results-ec]").innerText = result.ec.toString(16);
+      resultContainer.querySelector("[data-pla-results-pid]").innerText = result.pid.toString(16);
 
-      resultContainer.querySelector('.pla-results-teleport').appendChild(button);
-	  
-      resultsArea.appendChild(resultContainer);
+      resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText = result.ivs[0];
+      resultContainer.querySelector("[data-pla-results-ivs-att]").innerText = result.ivs[1];
+      resultContainer.querySelector("[data-pla-results-ivs-def]").innerText = result.ivs[2];
+      resultContainer.querySelector("[data-pla-results-ivs-spa]").innerText = result.ivs[3];
+      resultContainer.querySelector("[data-pla-results-ivs-spd]").innerText = result.ivs[4];
+      resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText = result.ivs[5];
+
+      switch (result.nature){
+        case "Lonely":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").style.color = "red";
+          resultContainer.querySelector("[data-pla-results-ivs-def]").style.color = "blue";
+          break;
+        case "Adamant":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").style.color = "red";
+          resultContainer.querySelector("[data-pla-results-ivs-def]").style.color = "blue";
+          break;
+        case "Naughty":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").style.color = "red";
+          resultContainer.querySelector("[data-pla-results-ivs-def]").style.color = "blue";
+          break;
+        case "Brave":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").style.color = "red";
+          resultContainer.querySelector("[data-pla-results-ivs-def]").style.color = "blue";
+          break;
+
+        case "Bold":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").style.color = "red";
+          resultContainer.querySelector("[data-pla-results-ivs-def]").style.color = "blue";
+          break;
+        case "Impish":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").style.color = "red";
+          resultContainer.querySelector("[data-pla-results-ivs-def]").style.color = "blue";
+          break;
+        case "Lax":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").style.color = "red";
+          resultContainer.querySelector("[data-pla-results-ivs-def]").style.color = "blue";
+          break;
+        case "Relaxed":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").style.color = "red";
+          resultContainer.querySelector("[data-pla-results-ivs-def]").style.color = "blue";
+          break;
+      }
+
+
 	  
     });
   } else {
@@ -449,4 +464,3 @@ function showError(error) {
   console.log(error);
   resultsArea.textContent = "Error" + JSON.stringify(error, null, 2);
 }
-

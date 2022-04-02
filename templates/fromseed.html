@@ -19,16 +19,33 @@
 			var html_code = '';
 			$.getJSON('static/resources/seedhashes.json', function(data) {
 				console.log(id)
-				html_code += '<option value="">Select Species</option>';
+				//html_code += '<option value="">ポケモンを選択</option>';
 				$.each(data, function(key, value) {
 					if (value.parent_id == parent_id) {
 						html_code += '<option value="' + value.hash + '">' + value.species + '</option>';
 					}
 				});
 				$('#' + id).html(html_code);
+                var item = $("#"+id).children().sort(function(a,b){
+                    //textでソート
+                    var sortA= a.text;
+                    var sortB = b.text;
+
+                    if (sortA > sortB) {
+                        return 1;
+                    } else if (sortA < sortB) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+                $("#"+id).append(item);
+                $("#"+id).prepend($('<option>').html("ポケモンを選択").val(""));
+                $("#"+id).val("");
 			});
 		}
 		get_json_data('frpokemon',0);
+        $("#frpokemon").prepend($('<option>').html("ポケモンを選択").val(""));
 		console.log("finished frpokemon")
 
 		$(document).on('change', '#frpokemon', function() {
@@ -36,7 +53,7 @@
 			if (brand_id != '') {
 				get_json_data('brpokemon', brand_id);
 			} else {
-				$('#brpokemon').html('<option value="">Select Second Round Species</option>');
+				$('#brpokemon').html('<option value="">ポケモンを選択</option>');
 			}
 		});
 	});
@@ -51,23 +68,23 @@
     <main>
         <section class="pla-section-options">
             <div class="pla-control">
-                <label for="inputseed">Input Seed:</label>
+                <label for="inputseed">シード値:</label>
                 <input type="text" id="inputseed">
             </div>
 
             <div class="pla-control">
-                <label for="rolls">Shiny Rolls</label>
+                <label for="rolls">色違いの確率</label>
                 <select id="rolls">
-                    <option value="13">Default</option>
-                    <option value="14">Dex Research 10</option>
-                    <option value="16">Dex Research Perfect</option>
-                    <option value="17">Shiny Charm</option>
-                    <option value="19">Shiny Charm + Perfect</option>
+                    <option value="13">デフォルト</option>
+                    <option value="14">図鑑レベル10</option>
+                    <option value="16">図鑑完璧</option>
+                    <option value="17">光るお守り</option>
+                    <option value="19">光るお守り + 図鑑完璧</option>
                 </select>
             </div>
 			
 			<div class="pla-control">
-				<label for="frspawns">First Round Spawns</label>
+				<label for="frspawns">最初の群れの個体数</label>
 				<select id="frspawns">
 					<option value="8">8</option>
 					<option value="9">9</option>
@@ -76,12 +93,12 @@
 			</div>
 			
 			<div class="pla-control">
-				<label for="bonus">Bonus Round?</label>
+				<label for="bonus">後続有り</label>
 				<input type="checkbox" id="bonus">
 			</div>
 			
 			<div class="pla-control">
-				<label for="brspawns">Bonus Round Spawns</label>
+				<label for="brspawns">後続の群れの個体数</label>
 				<select id="brspawns">
 					<option value="6">6</option>
 					<option value="7">7</option>
@@ -99,36 +116,36 @@
 			</div>-->
 			
 			<div class="pla-control">
-				<label for="frpokemon">First Round Pokemon:</label>
+				<label for="frpokemon">最初の群れのポケモン:</label>
 				<select name="frpokemon" id="frpokemon" class="form-control">
-					<option value="">Select Pokemon</option>
+					<option value="">ポケモンを選択</option>
 				</select>
 			</div>
 			
 			<div class="pla-control">
-				<label for="brpokemon">Bonus Round Pokemon:</label>
+				<label for="brpokemon">後続の群れのポケモン:</label>
 				<select name="brpokemon" id="brpokemon" class="form-control">
-					<option value="">Select Pokemon</option>
+					<option value="">ポケモンを選択</option>
 				</select>
 			</div>
 
             <div class="pla-control-checkbox">
-                <label for="mmoShinyFilter">Shiny or Alpha</label>
+                <label for="mmoShinyFilter">色違いと親分を表示</label>
                 <input type="checkbox" id="mmoShinyOrAlphaFilter">
             </div>
 
             <div class="pla-control-checkbox">
-                <label for="mmoShinyFilter">Shiny Only</label>
+                <label for="mmoShinyFilter">色違いのみ表示</label>
                 <input type="checkbox" id="mmoShinyFilter">
             </div>
 
             <div class="pla-control-checkbox">
-                <label for="mmoAlphaFilter">Alpha Only</label>
+                <label for="mmoAlphaFilter">親分のみ表示</label>
                 <input type="checkbox" id="mmoAlphaFilter">
             </div>
 			
 			<div class="pla-control-checkbox">
-                <label for="mmoDefaultRouteFilter">Show Default Paths Only</label>
+                <label for="mmoDefaultRouteFilter">逃げるポケモン<br>（複数匹の戦闘が不可能）</label>
                 <input type="checkbox" id="mmoDefaultRouteFilter">
             </div>
 
@@ -140,20 +157,16 @@
 			
 
             <div class="pla-control-actions">
-                <button class="pla-action-button" onclick="checkmmos()">Check MMO Seed</button>
+                <button class="pla-action-button" onclick="checkmmos()">検索</button>
             </div>
 			
         </section>
 		
-		<section class="pla-control">
-			<div class="pla-control-actions">
-                <button class="pla-action-button" onclick="window.location.href='/'">Back</button>
-            </div>
-		</section>
 
         <section class="pla-section-results">
             <div class="pla-results" data-pla-results>
-                This tool was created by Cappy, with help from Anubis, Kurt, Lincoln, Zyro and Santacrab420 for code and other assistance.
+                このツールはCappyによって制作されました。 コード制作等に、Anubis, Kurt, Lincoln, Zyro, Santacrab420の手助けを受けました。<br>
+                日本語化はJoey(@iam_joey)が担当しました。
             </div>
         </section>
 		
@@ -168,8 +181,8 @@
             </ul>
 
             <ul class="pla-results-ul">
-                <li><span class="pla-results-label">Shiny:</span> <span data-pla-results-shiny></span></li>
-                <li><span class="pla-results-label">Alpha:</span> <span data-pla-results-alpha></span></li>
+                <li><span class="pla-results-label">色違い:</span> <span data-pla-results-shiny></span></li>
+                <li><span class="pla-results-label">親分:</span> <span data-pla-results-alpha></span></li>
             </ul>
 
 			<ul class="pla-results-ul">
@@ -180,18 +193,18 @@
 				<li><span class="pla-results-label"><span data-pla-results-location></span></span></li>
 			</ul>
             <ul class="pla-results-ul">
-                <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
-                <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>
+                <li><span class="pla-results-label">性格:</span> <span data-pla-results-nature></span></li>
+                <li><span class="pla-results-label">性別:</span> <span data-pla-results-gender></span></li>
             </ul>
 
             <ul class="pla-results-ul">
-                <li><span class="pla-results-label">Seed:</span> <span data-pla-results-seed></span></li>
+                <li><span class="pla-results-label">シード値:</span> <span data-pla-results-seed></span></li>
                 <li><span class="pla-results-label">EC:</span> <span data-pla-results-ec></span></li>
                 <li><span class="pla-results-label">PID:</span> <span data-pla-results-pid></span></li>
             </ul>
 
             <div class="pla-results-ivs-container">
-                <span class="pla-results-label">IVs:</span>
+                <span class="pla-results-label">個体値:</span>
                 <ul class="pla-results-ivs">
                     <li class="pla-results-ivs-hp" data-pla-results-ivs-hp></li>
                     <li class="pla-results-ivs-att" data-pla-results-ivs-att></li>

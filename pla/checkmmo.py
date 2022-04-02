@@ -30,7 +30,7 @@ RATIOS = json.load(open("./static/resources/ratios.json"))
 
 extrapaths = [[],[1],[2],[2,1],[3],[3,1],[3,2],[3,2,1]]
 
-fixedgenders = ["Happiny", "Chansey", "Blissey", "Petilil", "Lilligant", "Bronzor", "Bronzong", "Voltorb", "Electrode", "Rotom", "Rufflet", "Braviary"]
+fixedgenders = ["Happiny", "Chansey", "Blissey", "Petilil", "Lilligant", "Bronzor", "Bronzong", "Voltorb", "Electrode", "Rotom", "Rufflet", "Braviary", "Unown"]
 
 def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     rng = XOROSHIRO(seed)
@@ -483,7 +483,7 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                                                                  bonus_spawns,
                                                                  true_spawns,encounters,
                                                                  encsum,isbonus,False)
-            elif epath[0] <= spawn_remain:
+            elif epath[0] < spawn_remain:
                 epath_seed = get_extra_path_seed(seed,epath)
                 display = generate_mass_outbreak_aggressive_path(epath_seed,rolls,
                                                                  nbpaths,bonus_spawns,true_spawns,
@@ -528,7 +528,7 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 display[index]["sprite"] = spritename
                 ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
                 ratio = ratioarray[2]
-                if display[index]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
+                if display[index]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
                     display[index]["gender"] = "Female"
                 elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
                     display[index]["gender"] = "Genderless"
@@ -586,7 +586,7 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                     display[str(index)]["sprite"] = spritename
                     ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
                     ratio = ratioarray[2]
-                    if display[str(index)]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
+                    if display[str(index)]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
                         display[str(index)]["gender"] = "Female"
                     elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
                         display[str(index)]["gender"] = "Genderless"
