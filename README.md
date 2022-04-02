@@ -10,9 +10,7 @@
 
 ## 必要なもの
 * [Python](https://www.python.org/downloads/)
-* [Nintendo Switch Online] (https://www.nintendo.co.jp/hardware/switch/onlineservice/pricing/index.html)
+* [Nintendo Switch Online](https://www.nintendo.co.jp/hardware/switch/onlineservice/pricing/index.html)
 
 ## Credits:
-* olliz0r for his great [sys-botbase](https://github.com/olliz0r/sys-botbase) which let open sockets on the Nintendo Switch
-* spacemeowx2 for his livesafer [sys-module](https://github.com/spacemeowx2/ldn_mitm). It avoids Switch to disconnect from wifi once game is opened
-
+* Cappy for original one
