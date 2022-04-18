@@ -30,6 +30,7 @@
 
 逃げるポケモンの場合、Show Default Paths Only✔で
 1匹ずつスポーンさせるパターンのみ表示
+もしくは、餌を当てて複数同時に怯えさせて（!マークを出す）、怯えたポケモンが消える前に遠くの拠点にテレポートすると
 
 # 記号の解説
 （例）
@@ -51,6 +52,9 @@ https://shinyhunter.club/tools/arceus-available-pokemon-mmo
 ## 必要なもの
 * [Python](https://www.python.org/downloads/)
 * [Nintendo Switch Online](https://www.nintendo.co.jp/hardware/switch/onlineservice/pricing/index.html)
+* [EtumrepMMO（群れの最初の4匹からシードを特定するアプリ）] (https://github.com/kwsch/EtumrepMMO/releases/tag/v1.1.0)
+* [.NET Runtime 6.0] (https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.4-windows-x64-installer)
+* [Microsoft Visual C++ Redistributable.] (https://aka.ms/vs/17/release/vc_redist.x64.exe)
 
 ## Credits:
 * Cappy for original one
